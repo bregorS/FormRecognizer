@@ -12,11 +12,11 @@ DocumentAnalysisClient client = new DocumentAnalysisClient(new Uri(endpoint), cr
 //Uri fileUri = new Uri("https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf");
 //AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, "prebuilt-document", fileUri);
 
-//var fs = new FileStream("PassportSample.png", FileMode.Open);
+var fs = new FileStream("PassportSample.png", FileMode.Open);
 //var fs = new FileStream("Bean.png", FileMode.Open);
-var fs = new FileStream("P60.jpg", FileMode.Open);
+//var fs = new FileStream("P60.jpg", FileMode.Open);
 
-AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-document", fs);
+AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-idDocument", fs);
 AnalyzeResult result = operation.Value;
 
 Console.WriteLine("Detected key-value pairs:");
