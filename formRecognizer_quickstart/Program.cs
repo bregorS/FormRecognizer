@@ -12,24 +12,25 @@ DocumentAnalysisClient client = new DocumentAnalysisClient(new Uri(endpoint), cr
 //Uri fileUri = new Uri("https://raw.githubusercontent.com/Azure-Samples/cognitive-services-REST-api-samples/master/curl/form-recognizer/sample-layout.pdf");
 //AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync.AnalyzeDocumentFromUriAsync(WaitUntil.Completed, "prebuilt-document", fileUri);
 
-var fs = new FileStream("PassportSample.png", FileMode.Open);
+//var fs = new FileStream("PassportSample.png", FileMode.Open);
 //var fs = new FileStream("Bean.png", FileMode.Open);
 //var fs = new FileStream("P60.jpg", FileMode.Open);
+var fs = new FileStream("uk-driving-licence.jpg", FileMode.Open);
 
 AnalyzeDocumentOperation operation = await client.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-idDocument", fs);
 AnalyzeResult result = operation.Value;
 
-Console.WriteLine("Detected key-value pairs:");
+Console.WriteLine("Detected fields:");
 
-foreach (DocumentKeyValuePair kvp in result.KeyValuePairs)
+foreach (var kvp in result.Documents[0].Fields)
 {
     if (kvp.Value == null)
     {
-        Console.WriteLine($"  Found key with no value: '{kvp.Key.Content}'");
+        Console.WriteLine($"  Found key with no value: '{kvp.Key}'");
     }
     else
     {
-        Console.WriteLine($"  Found key-value pair: '{kvp.Key.Content}' and '{kvp.Value.Content}'");
+        Console.WriteLine($"  Found key-value pair: '{kvp.Key}' and '{kvp.Value.Content}'");
     }
 }
 
